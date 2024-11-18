@@ -23,6 +23,12 @@ namespace Number_Guessing_Game
             int choice = GetChoice();
 
             // choose the difficulty level of the game
+            SetDifficulty(choice);
+
+            Console.WriteLine($"Greate, you select the {difficulty.ToString().ToLower()} difficulty level");
+        }
+        private void SetDifficulty(int choice)
+        {
             switch (choice)
             {
                 case 1:
@@ -37,11 +43,7 @@ namespace Number_Guessing_Game
                     chances = 3;
                     difficulty = enDifficultyLevel.HARD;
                     break;
-                default:
-                    break;
             }
-
-            Console.WriteLine($"Greate, you select the {difficulty.ToString().ToLower()} difficulty level");
         }
         private int GetChoice()
         {
@@ -94,6 +96,26 @@ namespace Number_Guessing_Game
             // show message chances finished if the player didn't
             // guess the number correctly during number of chances
             Console.WriteLine($"Game over! you didn't get the correct answer, you just blown all {chances} chances, you can't guess again");
+            
+            // repeat the game again if the player choose yes
+            RepeatGame();
+        }
+        private void RepeatGame()
+        {
+            string? answer = string.Empty;
+
+            Console.Write("\nDo you want to play again Yes [Y] No [N]: ");
+            answer = Console.ReadLine();
+            if (answer?.ToUpper() == "Y")
+            {
+                Console.Clear();
+                SelectDifficulty();
+                StartGame();
+                return;
+            }
+
+            Console.WriteLine("Thanks! Good luck, have a nice day");
+            return;
         }
     }
 }
